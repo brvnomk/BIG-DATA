@@ -1,0 +1,6 @@
+1,Efectivo
+2, yape/plin
+3,Tarjeta
+4,Transferencia
+5,Deposito en cuenta
+3,Tarjeta
