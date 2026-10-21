@@ -36,7 +36,6 @@ dim_tiempo: fecha, año, trimestre, mes, semana y día.
 dim_metodoPago: efectivo, Yape/Plin, tarjeta, transferencia, depósito y "no registrado".
 dim_proveedor: RUC, razón social y ciudad.
 
-Este es el modelo que presentamos en la semana 6.
 
 El ETL (03_ETL_CARGA.sql)
 Paso	Qué hace	Limpieza que aplica
