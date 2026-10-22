@@ -4426,5 +4426,5 @@ SELECT serie_numero, 1 + id_venta % 5
 FROM dbo.VENTAS WHERE id_venta % 1499 = 0
 GO
 
-EXEC sp_generar_ventas @num_ventas = 10000, @semilla = 2026
+EXEC sp_generar_ventas @num_ventas = 100000, @semilla = 2026
 GO
