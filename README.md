@@ -58,6 +58,6 @@ Monitoreo ETL: ejecuciones, duración por paso y registros observados según el 
 Pruebas con distintos volúmenes
 
 Escenario	   Ventas	     Líneas de detalle	    Filas en fac_ventas	      Tiempo total del ETL	      Reconciliación
-E1	            10,000	     24,941	                24,387	                  1.3 s	                     OK
-E2	            100,000	     250,203	             242,023	                  4.7 s                     	OK
-E3	            500,000	     1,249,267	             1,183,472	               11.1 s	                  OK
+E1	            10,000	     24,941	                24,387	                  1.4 s	                     OK
+E2	            100,000	     250,203	             242,023	                  3.14 s                     OK
+E3	            500,000	     1,249,267	             1,183,472	               11.45 s	                  OK
