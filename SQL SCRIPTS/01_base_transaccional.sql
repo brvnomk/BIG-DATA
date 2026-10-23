@@ -1,7 +1,3 @@
-﻿/* CERÁMICAS VALE - SCRIPT 1 de 3: BASE TRANSACCIONAL (OLTP)
-   Crea CERAMICAS_VALE: tablas, catálogo real de 2,045 productos, proveedores, clientes y ventas.
-   Orden de ejecución: 01 -> 02 -> 03 */
-
 USE master
 GO
 IF DB_ID('CERAMICAS_VALE') IS NULL
