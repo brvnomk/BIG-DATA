@@ -1,6 +1,3 @@
-﻿/* CERÁMICAS VALE - SCRIPT 2 de 3: CREAR ENTORNO ETL
-   Crea el Data Mart CeramicasVale_DM: dimensiones, hechos, staging y tablas de control del ETL. */
-
 use master
 go
 if DB_ID('CeramicasVale_DM') is null
