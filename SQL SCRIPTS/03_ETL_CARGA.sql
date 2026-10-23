@@ -1,11 +1,6 @@
-﻿/* CERÁMICAS VALE - SCRIPT 3 de 3: ETL_CARGA
-   Origen: CERAMICAS_VALE y archivos planos. Destino: CeramicasVale_DM.
-   Antes de ejecutar, copiar metodopago.txt y operacionVenta.txt a C:\txt\ceramicas_vale\ */
-
 use CeramicasVale_DM
 go
 
---Paso 0: Registramos el inicio de la ejecución
 insert into etl_ejecucion (escenario, fecha_inicio, estado)
 values ('MANUAL', SYSDATETIME(), 'EN PROCESO')
 go
@@ -185,16 +180,14 @@ go
 select * from dim_metodoPago
 go
 
---------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------
 --Paso 7: Cargamos staging de operaciones de caja (archivo plano)
 declare @t datetime2 = SYSDATETIME()
 Bulk insert stg_operacion
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
 	  from 'C:\txt\ceramicas_vale\operacionVenta.txt'
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
 	  WITH
 	  (FIRSTROW = 2,
 	  FIELDTERMINATOR='|', ROWTERMINATOR = '0x0a')
