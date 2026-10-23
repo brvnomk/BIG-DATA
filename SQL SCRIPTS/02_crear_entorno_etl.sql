@@ -1,4 +1,4 @@
-use master
+﻿use master
 go
 if DB_ID('CeramicasVale_DM') is null
     create database CeramicasVale_DM
@@ -14,9 +14,6 @@ drop table if exists dim_metodoPago
 drop table if exists dim_proveedor
 drop table if exists stg_operacion
 drop table if exists stg_metodoPago
-drop table if exists etl_errores
-drop table if exists etl_bitacora
-drop table if exists etl_ejecucion
 go
 
 create table dim_producto
@@ -97,6 +94,8 @@ descuento money
 )
 go
 
+-- Las tablas de control se crean solo la primera vez: así el historial de ejecuciones se conserva
+if object_id('etl_ejecucion') is null
 create table etl_ejecucion
 (id_ejecucion int primary key identity,
 escenario varchar(30),
@@ -108,6 +107,7 @@ estado varchar(20),
 mensaje varchar(4000))
 go
 
+if object_id('etl_bitacora') is null
 create table etl_bitacora
 (id_paso int primary key identity,
 id_ejecucion int references etl_ejecucion,
@@ -120,6 +120,7 @@ estado varchar(20),
 mensaje varchar(4000))
 go
 
+if object_id('etl_errores') is null
 create table etl_errores
 (id_error int primary key identity,
 id_ejecucion int references etl_ejecucion,
