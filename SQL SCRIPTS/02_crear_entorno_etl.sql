@@ -28,7 +28,7 @@ precio decimal(10,2),
 costo_unitario decimal(10,2),
 stock_actual int,
 stock_minimo int,
-estado_stock varchar(10)            -- CRITICO / NORMAL
+estado_stock varchar(10) -- CRITICO / NORMAL
 )
 go
 
@@ -39,7 +39,7 @@ tipo_documento varchar(3),
 nro_documento varchar(11),
 nombre varchar(200),
 distrito varchar(60),
-tipo_cliente varchar(10)            -- REGULAR / VIP
+tipo_cliente varchar(10) -- REGULAR / VIP
 )
 go
 
@@ -94,7 +94,6 @@ descuento money
 )
 go
 
--- Las tablas de control se crean solo la primera vez: así el historial de ejecuciones se conserva
 if object_id('etl_ejecucion') is null
 create table etl_ejecucion
 (id_ejecucion int primary key identity,
