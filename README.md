@@ -52,7 +52,7 @@ Los tiempos y las filas de cada paso quedan en etl_bitacora. Lo que se descarta,
 
 Dashboard (4 páginas)
 Resumen Ejecutivo: ventas, crecimiento contra el año anterior, margen contra la meta del 35 %, métodos de pago, categorías y proveedores.
-Almacén y Rotación: capital inmovilizado, clasificación ABC (Pareto), mapa de rotación y qué conviene liquidar o reponer.
+Almacén y Rotación: capital inmovilizado, clasificación ABC, mapa de rotación y qué conviene liquidar o reponer.
 Clientes y Demanda: días en que más se vende, distritos, clientes VIP y estacionalidad.
 Monitoreo ETL: ejecuciones, duración por paso y registros observados según el problema de calidad.
 Pruebas con distintos volúmenes
