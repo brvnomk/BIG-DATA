@@ -26,7 +26,7 @@ go
 create table PRODUCTOS
 (codigo_interno varchar(50) primary key,
 descripcion varchar(500) not null,
-unidad_medida varchar(20) not null,     -- MTK = m2, NIU = unidad, BX = caja, MTR = metro
+unidad_medida varchar(20) not null,-- MTK = m2, NIU = unidad, BX = caja, MTR = metro
 marca varchar(100) not null,
 precio decimal(10,2) not null,
 categoria varchar(50) null,
@@ -54,7 +54,7 @@ tipo_comprobante varchar(10) not null,
 serie_numero varchar(20) null,
 fecha datetime not null,
 id_cliente int not null references CLIENTES,
-estado varchar(10) not null,            -- EMITIDO / ANULADO
+estado varchar(10) not null,-- EMITIDO / ANULADO
 total decimal(12,2) not null default 0
 )
 go
@@ -4297,8 +4297,6 @@ go
 USE CERAMICAS_VALE
 GO
 
--- Uso: EXEC sp_generar_ventas @num_ventas = 10000, @semilla = 2026
--- Incluye a propósito comprobantes ANULADOS (~2 %) y líneas con precio 0 para probar la calidad del ETL
 IF OBJECT_ID('dbo.sp_generar_ventas') IS NOT NULL
     DROP PROCEDURE dbo.sp_generar_ventas
 GO
@@ -4402,8 +4400,6 @@ BEGIN
 END
 GO
 
--- Exportación de caja (comprobante | método de pago) para generar operacionVenta.txt.
--- Trae a propósito comprobantes sin pago, duplicados y el método 9, que no existe
 CREATE VIEW dbo.vw_export_pagos_caja
 AS
 SELECT serie_numero comprobante,
