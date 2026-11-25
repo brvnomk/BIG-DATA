@@ -1,10 +1,8 @@
 # Cerámicas Vale: base de datos, ETL y dashboard
 
 Proyecto final del curso **Base de Datos Avanzadas y Big Data** (UPN, 2026-2).
-
 Los scripts crean todo desde cero, así que no hace falta tener ninguna otra base de datos.
-
-**Herramientas:** SQL Server (SSMS 22) y Power BI Desktop.
+Herramientas: SQL Server (SSMS 22) y Power BI Desktop.
 
 ---
 
