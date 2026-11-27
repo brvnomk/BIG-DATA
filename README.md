@@ -15,6 +15,9 @@ Herramientas: SQL Server (SSMS 22) y Power BI Desktop.
 - [El ETL](#el-etl-03_etl_cargasql)
 - [Dashboard](#dashboard-4-páginas)
 - [Pruebas con distintos volúmenes](#pruebas-con-distintos-volúmenes)
+- [Experimentos de la solución BI](#experimentos-de-la-solución-bi)
+- [Automatización del ETL](#automatización-del-etl)
+- [Documento de replicación](#documento-de-replicación)
 
 ---
 
@@ -30,7 +33,8 @@ BIG-DATA/
 │   ├── metodopago.txt
 │   ├── operacionVenta.txt          (100K ventas)
 │   ├── operacionVenta_10000.txt    (10K ventas)
-│   └── operacionVenta_500000.txt   (500K ventas)
+│   ├── operacionVenta_500000.txt   (500K ventas)
+│   └── operacionVenta_1000000.txt  (1M ventas)
 ├── DATOS/
 │   ├── Reporte_Items_2026-10-19 23_21_47.xlsx
 │   └── catalogo_productos_2026-10-19.csv
@@ -38,6 +42,10 @@ BIG-DATA/
 │   ├── POWER BI/   (modelo, dashboards y archivo .pbix)
 │   └── SQL/        (diagrama del modelo estrella)
 ├── EVIDENCIAS/     (capturas de las pruebas de 10K, 100K y 500K)
+│   └── EXPERIMENTOS_BI/   (capturas de los 4 experimentos de BI)
+├── EXPERIMENTOS/BI/      (scripts y guía de los experimentos de BI)
+├── AUTOMATIZACION/       (ejecutar_etl.bat y guía para programar el ETL)
+├── DOCUMENTO_DE_REPLICACION (.md/.docx/.pdf)  (cómo replicar BI, Big Data y experimentos)
 ├── Manual.docx
 ├── PROCEDIMIENTO DE REPLICACIÓN.docx
 ├── 2026-2_ISC-Informe_Proyecto_Final_BASAV.docx
@@ -125,10 +133,10 @@ Los tiempos y las filas de cada paso quedan en `etl_bitacora`. Lo que se descart
 
 | Página | Qué muestra |
 |---|---|
-| **Resumen Ejecutivo** | Ventas, crecimiento contra el año anterior, margen contra la meta del 35 %, métodos de pago, categorías y proveedores. |
+| **Dashboard** | Ventas, crecimiento contra el año anterior, margen contra la meta del 35 %, métodos de pago, categorías y proveedores. |
 | **Almacén y Rotación** | Capital inmovilizado, clasificación ABC, mapa de rotación y qué conviene liquidar o reponer. |
 | **Clientes y Demanda** | Días en que más se vende, distritos, clientes VIP y estacionalidad. |
-| **Monitoreo ETL** | Ejecuciones, duración por paso y registros observados según el problema de calidad. |
+| **ETL** | Ejecuciones, duración por paso y registros observados según el problema de calidad. |
 
 ![Dashboard](VISUAL/POWER%20BI/3.Dashboards.png)
 
@@ -143,3 +151,34 @@ Los tiempos y las filas de cada paso quedan en `etl_bitacora`. Lo que se descart
 | E3 | 500,000 | 1,249,267 | 1,183,472 | 11.45 s | ✅ OK |
 
 Las capturas de cada escenario (iteraciones, uso de disco, reconciliación, descartes y CPU) están en `EVIDENCIAS/10K`, `EVIDENCIAS/100K` y `EVIDENCIAS/500K`.
+
+---
+
+## Experimentos de la solución BI
+
+Cada integrante hizo un experimento distinto en su propia computadora. Los scripts y la guía paso a paso
+(`GUIA_EXPERIMENTOS_BI.pdf`) están en [`EXPERIMENTOS/BI`](EXPERIMENTOS/BI); las capturas, en
+[`EVIDENCIAS/EXPERIMENTOS_BI`](EVIDENCIAS/EXPERIMENTOS_BI). El detalle de cada uno está en la sección 6.7 del informe.
+
+| Código | Experimento | Integrante | Resultado principal |
+|---|---|---|---|
+| BI-1 | Volumen progresivo (10K → 1M ventas) | Diego Rojas | Con 1 millón de ventas el ETL tarda 41.3 s en SQL Server Express: cumple la meta de menos de 60 s |
+| BI-2 | Cursor vs. consulta por conjuntos | Jimi Huasupoma | El cursor es 92 veces más lento y usa 40 veces más CPU |
+| BI-3 | Un COMMIT por fila vs. un solo COMMIT | Bruno Elescano | Una sola transacción es unas 19 veces más rápida |
+| BI-4 | Power BI: Importar vs. DirectQuery | Sebastián Huarancca | Importar responde 1.7 veces más rápido; DirectQuery muestra los cambios al instante; el .pbix con Importar pesa 139 veces más |
+
+Todos los scripts se abren en SSMS y se ejecutan con **F5**. BI-2 y BI-3 trabajan en tablas de prueba que se borran al final.
+
+---
+
+## Automatización del ETL
+
+El script 03 puede correr solo cada noche con el Programador de tareas de Windows (`AUTOMATIZACION/ejecutar_etl.bat`)
+o con el Agente SQL Server. Los pasos están en [`AUTOMATIZACION/AUTOMATIZACION_ETL.md`](AUTOMATIZACION/AUTOMATIZACION_ETL.md).
+Si un paso falla, la ejecución queda como **ERROR** en `etl_ejecucion`.
+
+---
+
+## Documento de replicación
+
+El paso a paso completo para replicar la solución BI, los experimentos y (próximamente) la solución Big Data está en [`DOCUMENTO_DE_REPLICACION.pdf`](DOCUMENTO_DE_REPLICACION.pdf) (también en [Markdown](DOCUMENTO_DE_REPLICACION.md) y Word).

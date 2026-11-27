@@ -1,4 +1,4 @@
-use CeramicasVale_DM
+﻿use CeramicasVale_DM
 go
 
 insert into etl_ejecucion (escenario, fecha_inicio, estado)
@@ -294,12 +294,20 @@ declare @filas int = (select COUNT(*) from fac_ventas)
 insert into etl_bitacora (id_ejecucion, proceso, hora_inicio, hora_fin, duracion_ms, filas_procesadas, estado, mensaje)
 values ((select MAX(id_ejecucion) from etl_ejecucion), '9. Reconciliación', @t, SYSDATETIME(), DATEDIFF(MILLISECOND, @t, SYSDATETIME()), @filas, @estado, @mensaje)
 
+-- Estado final: si un paso falló no llega a registrarse en la bitácora, así que deben estar los 8 pasos
+-- previos con EXITOSO y la reconciliación en OK; si no, la ejecución queda como ERROR
+declare @id_ejecucion int = (select MAX(id_ejecucion) from etl_ejecucion)
+declare @pasos_ok int = (select COUNT(*) from etl_bitacora
+                         where id_ejecucion = @id_ejecucion and estado = 'EXITOSO' and proceso not like '9.%')
+
 update etl_ejecucion
 set fecha_fin = SYSDATETIME(),
     duracion_ms = DATEDIFF(MILLISECOND, fecha_inicio, SYSDATETIME()),
     filas_hechos = @filas,
-    estado = 'EXITOSO'
-where id_ejecucion = (select MAX(id_ejecucion) from etl_ejecucion)
+    estado = case when @pasos_ok = 8 and @estado = 'OK' then 'EXITOSO' else 'ERROR' end,
+    mensaje = case when @pasos_ok = 8 and @estado = 'OK' then NULL
+                   else CAST(@pasos_ok as varchar) + ' de 8 pasos exitosos; reconciliación ' + @estado end
+where id_ejecucion = @id_ejecucion
 go
 
 select proceso, duracion_ms, filas_procesadas, estado, mensaje
