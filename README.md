@@ -149,7 +149,7 @@ Los tiempos y las filas de cada paso quedan en `etl_bitacora`. Lo que se descart
 | **Clientes y Demanda** | Días en que más se vende, distritos, clientes VIP y estacionalidad. |
 | **ETL** | Ejecuciones, duración por paso y registros observados según el problema de calidad. |
 
-![Dashboard](VISUAL/POWER BI/2.1 Resumen Ejecutivo.png)
+![Dashboard](VISUAL/POWER%20BI/2.1%20Resumen%20Ejecutivo.png)
 
 ---
 
